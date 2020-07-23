@@ -9,7 +9,7 @@
      - [Ajax和JSON](blog/Ajax和JSON.md)
      - [微信小程序](blog/小程序开发.md)
      - **——SSM框架——**
-     - [MyBatis](blog/MyBatis.md)
+     - [MyBatis](blog/mybatis.md)
      
      * [Spring](blog/Spring.md)
      * [SpringMVC](blog/SpringMVC.md)
