@@ -8,13 +8,14 @@
 		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 		<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/lib/themes/vue.css">
 		<link rel="icon" href="icon.jpg" type="image/x-icon" />
+		<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.css">
+		<link rel="stylesheet" href="//unpkg.com/gitalk/dist/gitalk.css">
 	</head>
 	<body>
 		<div id="app">Please wait...</div>
 		<script>
 			window.$docsify = {
 				name: '',
-				repo: '',
 				// 侧边栏，多文件
 				loadSidebar: true,
 				// 封面设置
@@ -54,10 +55,35 @@
 					},
 					// 搜索标题的最大层级, 1 - 6
 					depth: 2,
+				},
+				count:{
+				    countable:true,
+				    fontsize:'0.9em',
+				    color:'rgb(90,90,90)',
+				    language:'chinese'
 				}
 			}
 		</script>
 		<script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
 		<script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script>
+		<!-- 统计字数 -->
+		<script src="//unpkg.com/docsify-count/dist/countable.js"></script>
+		<!-- 代码块复制 -->
+		<script src="//cdn.jsdelivr.net/npm/docsify-copy-code"></script>
+		
+		<!--插入“gitalk评论”模块-->
+		<script src="//unpkg.com/docsify/lib/plugins/gitalk.min.js"></script>
+		<script src="//unpkg.com/gitalk/dist/gitalk.min.js"></script>
+		<script src="js/md5.min.js"></script>
+		<script>
+			const gitalk = new Gitalk({
+				clientID: 'eed9196483eed8e225ac',
+				clientSecret: 'f1c3cbd8b2b657ab1f53dc63a28c9f51e824fe50',
+				repo: 'https://github.com/Xiaojiang-l/myblog',
+				owner: 'Xiaojiang-l',
+				admin: ['Xiaojiang-l'],
+				distractionFreeMode: false // Facebook-like distraction free mode
+			})
+		</script>
 	</body>
 </html>
