@@ -8,7 +8,7 @@
      - [Vue-cli](blog/Vue-cli.md)
      - [Ajax和JSON](blog/Ajax和JSON.md)
      - [微信小程序](blog/小程序开发.md)
-     - [JavaWeb](blog/JavaWeb.md)
+     - [JavaWeb](blog/javaweb.md)
      - **——SSM框架——**
      - [MyBatis](blog/mybatis.md)
      
