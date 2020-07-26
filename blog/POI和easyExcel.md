@@ -1,4 +1,4 @@
-## POI 和 easyExcel 讲解
+## 1、POI 和 easyExcel 讲解
 
 > 常用进程
 
@@ -42,7 +42,7 @@ EasyExcel 能大大减少占用内存的主要原因是在解析 Excel 时没有
 
 
 
-## POI-Excel写
+## 2、POI-Excel写
 
 > 创建新项目
 
@@ -92,7 +92,7 @@ EasyExcel 能大大减少占用内存的主要原因是在解析 Excel 时没有
 
 1、工作簿：  2、工作表：  3、行： 4、列：
 
-### 03版本：
+### 2.1、03版本：
 
 ```java
 // 存放路径
@@ -175,7 +175,7 @@ public void testWrite03BigData() throws IOException {
 
 
 
-### 07版本：
+### 2.2、07版本：
 
 ```java
 // 存放路径
@@ -303,9 +303,9 @@ SXSSFWorkbook-来至官方的解释：实现“BigGridDemo”策略的流式XSSF
 
 
 
-## POI-Excel读
+## 3、POI-Excel读
 
-### 03版本
+### 3.1、03版本
 
 ```java
 @Test
@@ -331,7 +331,7 @@ public void testRead03() throws Exception {
 
 
 
-### 07版本
+### 3.2、07版本
 
 ```Java
 @Test
@@ -360,7 +360,7 @@ public void testRead07() throws Exception {
 
 
 
-### 读取不同的数据类型
+### 3.3、读取不同的数据类型
 
 （最麻烦的就是这里了！）
 
@@ -450,7 +450,7 @@ public void testCellType() throws Exception {
 
 
 
-### 计算公式 
+### 3.4、计算公式 
 
 （了解即可！）
 
@@ -486,7 +486,7 @@ public void testFormula() throws Exception {
 
 
 
-## EasyExcel操作
+## 4、EasyExcel操作
 
 > 导入依赖
 
@@ -534,7 +534,7 @@ https://www.yuque.com/easyexcel/doc/read
 
 
 
-## 学习方式
+## 5、学习方式
 
 1. 写数据一般步骤：创建工作簿、创建工作表、创建一行、创建一列、通过文件输出流保存
 2. 读数据一般步骤：通过文件输入流读取工作簿、得到工作表、得到行、得到列、取出数值（注意类型）
@@ -545,7 +545,7 @@ https://www.yuque.com/easyexcel/doc/read
 
 
 
-## 总结：
+## 6、总结：
 
 - 创建表格
 
@@ -664,7 +664,7 @@ https://www.yuque.com/easyexcel/doc
 
 
 
-## 合并Excel工作簿
+## 7、合并Excel工作簿
 
 > 以后收集成绩等信息就可以这样使用了
 
@@ -682,55 +682,63 @@ https://www.yuque.com/easyexcel/doc
 
    ![image-20200531143549893](.\POI和easyExcel.assets\image-20200531143549893.png)
 
-4. 写上如下程序
+4. 写上如下程序（左侧那里记得选中需要合并到的表中）
 
    ![image-20200531143625465](.\POI和easyExcel.assets\image-20200531143625465.png)
 
    - **注意：下面的第7行代码`MN = Dir(MP & "\" & "*.xlsx")` 用于设置读取的是所有xlxs（07版）的Excel文件**
    - **如果读取的文件为03版，请设置为`MN = Dir(MP & "\" & "*.xls")` **
    - **读取全部文件则设置为MN = Dir(MP & "\" & "*")**
+   
+   ```vb
+   Sub 合并目录所有工作簿全部工作表()
+       Dim MP, MN, AW, Wbn, wn
+       Dim Wb As Workbook
+       Dim i, a, b, d, c, e
+       Application.ScreenUpdating = False
+       MP = ActiveWorkbook.Path
+       MN = Dir(MP & "\" & "*.xlsx")
+       AW = ActiveWorkbook.Name
+       Num = 0
+       e = 1
+       Do While MN <> ""
+           If MN <> AW Then
+               Set Wb = Workbooks.Open(MP & "\" & MN)
+                   a = a + 1
+                   With Workbooks(1).ActiveSheet
+                   For i = 1 To Sheets.Count
+                   If Sheets(i).Range("a1") <> "" Then
+                       Wb.Sheets(i).Range("a1").Resize(1, Sheets(i).UsedRange.Columns.Count).Copy .Cells(1, 1)
+                       d = Wb.Sheets(i).UsedRange.Columns.Count
+                       c = Wb.Sheets(i).UsedRange.Rows.Count - 1
+                       wn = Wb.Sheets(i).Name
+                       .Cells(1, d + 1) = "表名"
+                       .Cells(e + 1, d + 1).Resize(c, 1) = MN & wn
+                       e = e + c
+                       Wb.Sheets(i).Range("a2").Resize(c, d).Copy .Cells(.Range("a1048576").End(xlUp).Row + 1, 1)
+           End If
+       Next
+       Wbn = Wbn & Chr(13) & Wb.Name
+       Wb.Close False
+   End With
+   End If
+   MN = Dir
+   Loop
+   Range("a1").Select
+   Application.ScreenUpdating = True
+   MsgBox "共合并了" & a & "个工作薄下全部工作表。如下：" & Chr(13) & Wbn, vbInformation, "提示"
+   End Sub
+   ```
 
-```vb
-Sub 合并目录所有工作簿全部工作表()
-    Dim MP, MN, AW, Wbn, wn
-    Dim Wb As Workbook
-    Dim i, a, b, d, c, e
-    Application.ScreenUpdating = False
-    MP = ActiveWorkbook.Path
-    MN = Dir(MP & "\" & "*.xlsx")
-    AW = ActiveWorkbook.Name
-    Num = 0
-    e = 1
-    Do While MN <> ""
-        If MN <> AW Then
-            Set Wb = Workbooks.Open(MP & "\" & MN)
-                a = a + 1
-                With Workbooks(1).ActiveSheet
-                For i = 1 To Sheets.Count
-                If Sheets(i).Range("a1") <> "" Then
-                    Wb.Sheets(i).Range("a1").Resize(1, Sheets(i).UsedRange.Columns.Count).Copy .Cells(1, 1)
-                    d = Wb.Sheets(i).UsedRange.Columns.Count
-                    c = Wb.Sheets(i).UsedRange.Rows.Count - 1
-                    wn = Wb.Sheets(i).Name
-                    .Cells(1, d + 1) = "表名"
-                    .Cells(e + 1, d + 1).Resize(c, 1) = MN & wn
-                    e = e + c
-                    Wb.Sheets(i).Range("a2").Resize(c, d).Copy .Cells(.Range("a1048576").End(xlUp).Row + 1, 1)
-        End If
-    Next
-    Wbn = Wbn & Chr(13) & Wb.Name
-    Wb.Close False
-End With
-End If
-MN = Dir
-Loop
-Range("a1").Select
-Application.ScreenUpdating = True
-MsgBox "共合并了" & a & "个工作薄下全部工作表。如下：" & Chr(13) & Wbn, vbInformation, "提示"
-End Sub
-```
+5. 然后点回原来的Excel中，选择宏
 
-5. 对代码的解释
+   ![image-20200531143729862](.\POI和easyExcel.assets\image-20200531143729862.png)
+   
+6. 单击执行，然后等待一会就可以了
+
+   ![image-20200531143758067](.\POI和easyExcel.assets\image-20200531143758067.png)
+
+7. 对代码的解释
 
    ```vb
    Sub 合并目录所有工作簿全部工作表()
@@ -791,7 +799,23 @@ End Sub
    End Sub
    ```
 
-## 合并成绩表
+   平时就需要改这两处地方，上面部分表示只读取一次（比如每个表格都有的标题信息，就不用重复读取了）
+
+   ![image-20200726115411054](.\POI和easyExcel.assets\image-20200726115411054.png)
+
+   对于成绩表这样的多行标题的页面可以这样设置
+
+   ![image-20200726115613177](.\POI和easyExcel.assets\image-20200726115613177.png)
+
+   ![image-20200726115626562](.\POI和easyExcel.assets\image-20200726115626562.png)
+
+
+
+
+
+
+
+## 8、合并成绩表
 
    - 通过修改` a1 `和 `Cells(1, 1) `可以设置某一行只读取一遍
 
@@ -869,25 +893,7 @@ End Sub
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-## 异常
+## 9、可能遇到的异常
 
 ![image-20200530225635909](.\POI和easyExcel.assets\image-20200530225635909.png)
 
