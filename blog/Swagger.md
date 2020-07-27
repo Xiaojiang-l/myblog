@@ -212,7 +212,7 @@ Vue + SpringBoot
           .apiInfo(apiInfo())
           .enable(false) //配置是否启用Swagger，如果是false，在浏览器将无法访问
           .select()// 通过.select()方法，去配置扫描接口,RequestHandlerSelectors配置如何扫描接口
-          .apis(RequestHandlerSelectors.basePackage("com.kuang.swagger.controller"))
+          .apis(RequestHandlerSelectors.basePackage("com.xj.controller"))
           // 配置如何通过path过滤,即这里只扫描请求以/xj开头的接口
           .paths(PathSelectors.ant("/xj/**"))
           .build();
