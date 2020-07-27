@@ -188,7 +188,7 @@ Vue + SpringBoot
        return new Docket(DocumentationType.SWAGGER_2)
            .apiInfo(apiInfo())
            .select()// 通过.select()方法，去配置扫描接口,RequestHandlerSelectors配置如何扫描接口
-           .apis(RequestHandlerSelectors.basePackage("com.kuang.swagger.controller"))
+           .apis(RequestHandlerSelectors.basePackage("com.xj.controller"))
            // 配置如何通过path过滤,即这里只扫描请求以/xj开头的接口
            .paths(PathSelectors.ant("/xj/**"))
          	  /* 
