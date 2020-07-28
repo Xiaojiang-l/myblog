@@ -12,7 +12,7 @@
   - [Spring](blog/Spring.md)
   - [SpringMVC](blog/SpringMVC.md)
   - [SSM整合](blog/SSM.md)
-- 微服务
+- SpringBoot框架
   
   - [SpringBoot](blog/SpringBoot.md)
   - [SpringSecurity](blog/SpringSecurity.md)
